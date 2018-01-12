@@ -1,0 +1,24 @@
+﻿<script src="~/Scripts/knockout-3.4.2.js"></script>
+<table class="table" style="margin-top:20px;">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Ping</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach:List">
+        <tr>
+            <td data-bind="text:Name"></td>
+            <td data-bind="text:Status==true?'Включён':'Выключен'">Включён</td>
+            <td>
+                <a class="btn btn-success btn-xs" data-bind="attr:{href:'/home/edit/?id='+Id}">Edit</a>
+                <a class="btn btn-danger btn-xs" data-bind="attr:{href:'/home/delete/?id='+Id}">Delete</a>
+                <a class="btn btn-primary" data-bind="attr:{href:'/home/turnon/?id='+Id}">TurnOn</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src="~/Scripts/app/app.js"></script>

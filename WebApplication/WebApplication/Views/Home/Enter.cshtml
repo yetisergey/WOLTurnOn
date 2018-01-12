@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOL</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/app/enter.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home/index">WOL</a>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Login</label>
+                <div class="col-md-10">
+                    <input class="form-control" id="Login" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Password</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="password" id="Password" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button id="Submit" class="btn btn-default">Enter</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <p id="Message"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

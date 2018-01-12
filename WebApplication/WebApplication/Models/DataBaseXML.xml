@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <Computers>
+    <Computer>
+      <Name>Sergey's NoteBook</Name>
+      <Id>0f36048c-03ce-4b15-b208-52cb9e5c3b10</Id>
+      <IpAddress>192.168.88.184</IpAddress>
+      <MacAddress>6C-3B-E5-91-6D-80</MacAddress>
+      <UserId>1</UserId>
+    </Computer>
+  </Computers>
+  <Users>
+    <User>
+      <Id>1</Id>
+      <Login>*</Login>
+      <Password>*</Password>
+    </User>
+    <User>
+      <Id>2</Id>
+      <Login>*</Login>
+      <Password>*</Password>
+    </User>
+  </Users>
+</Database>
