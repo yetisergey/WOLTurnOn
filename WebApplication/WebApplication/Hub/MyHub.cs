@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using Microsoft.AspNet.SignalR;
     using Models;
-    using System.Threading;
     using Controllers.Utils;
     using System.Linq;
-    using System;
+    using System.Threading;
     using Models.Dto;
+    using System;
     [Authorize]
     public class MyHub : Hub
     {
@@ -20,29 +20,28 @@
         }
         public void GetList(string ClientId)
         {
-            //BaseContext db = new BaseContext(User.Identity);
-
-            //while (true)
-            //{
-            //    if (Users.Contains(ClientId))
-            //    {
-            //        Clients.Client(ClientId).sendList(PingComputers.Run(
-            //                db.GetComputers()
-            //                    .Select(c => new ComputerExtended()
-            //                    {
-            //                        Id = (Guid)c.Element("Id"),
-            //                        IpAddress = (string)c.Element("IpAddress"),
-            //                        MacAddress = (string)c.Element("MacAddress"),
-            //                        Name = (string)c.Element("Name")
-            //                    })
-            //                    .ToList()));
-            //    }
-            //    else
-            //    {
-            //        break;
-            //    }
-            //    Thread.Sleep(8000);
-            //}
+            BaseContext db = new BaseContext(Guid.Parse(Context.User.Identity.Name));
+            while (true)
+            {
+                if (Users.Contains(ClientId))
+                {
+                    Clients.Client(ClientId).sendList(PingComputers.Run(
+                            db.GetComputers()
+                                .Select(c => new ComputerExtended()
+                                {
+                                    Id = (Guid)c.Element("Id"),
+                                    IpAddress = (string)c.Element("IpAddress"),
+                                    MacAddress = (string)c.Element("MacAddress"),
+                                    Name = (string)c.Element("Name")
+                                })
+                                .ToList()));
+                }
+                else
+                {
+                    break;
+                }
+                Thread.Sleep(8000);
+            }
         }
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {

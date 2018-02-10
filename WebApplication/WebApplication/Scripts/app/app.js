@@ -13,6 +13,7 @@ $(function () {
     var hub = $.connection.myHub;
 
     hub.client.sendList = function (list) {
+        console.log(list);
         ViewModel.List(list);
     };
 

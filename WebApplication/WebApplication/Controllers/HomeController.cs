@@ -30,16 +30,8 @@
 
         public ActionResult Delete(Guid id)
         {
-            BaseContext db = new BaseContext(int.Parse(User.Identity.Name));
-            var temp = db.GetComputers().ToList();
-            foreach (var xe in temp)
-            {
-                if (xe.Element("Id").Value == id.ToString())
-                {
-                    xe.RemoveAll();
-                }
-            }
-            db.SaveChanges(temp);
+            BaseContext db = new BaseContext(Guid.Parse(User.Identity.Name));
+            db.DeleteComputer(id);
             return RedirectToAction("Index");
         }
 
@@ -49,67 +41,81 @@
         }
 
         [HttpPost]
-        public ActionResult Create(Computer iop)
+        public ActionResult Create(Computer computer)
         {
-            BaseContext db = new BaseContext(int.Parse(User.Identity.Name));
-            db.AddComputer(iop);
+            BaseContext db = new BaseContext(Guid.Parse(User.Identity.Name));
+            db.AddComputer(computer);
             return RedirectToAction("Index");
         }
-
-        public ActionResult Edit(Guid id)
+        public ActionResult CreateUser()
         {
-            BaseContext db = new BaseContext(int.Parse(User.Identity.Name));
-            var computers = db.GetComputers().ToList();
-            foreach (var computer in computers)
-            {
-                if (computer.Element("Id").Value == id.ToString())
-                {
-                    return View(
-                        new Computer() {
-                            Id = Guid.Parse(computer.Element("Id").Value),
-                            Name = computer.Element("Name").Value,
-                            MacAddress = computer.Element("MacAddress").Value,
-                            IpAddress = computer.Element("IpAddress").Value
-                        });
-                }
-            }
-            return HttpNotFound();
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Edit(Computer iop)
+        public ActionResult CreateUser(User user)
         {
-            BaseContext db = new BaseContext(int.Parse(User.Identity.Name));
-            var computers = db.GetComputers().ToList();
-            foreach (var computer in computers)
+            BaseContext db = new BaseContext(Guid.Parse(User.Identity.Name));
+            db.AddUser(user);
+            return RedirectToAction("Index");
+        }
+        public ActionResult Edit(Guid id)
+        {
+            BaseContext db = new BaseContext(Guid.Parse(User.Identity.Name));
+            var computer = db.GetComputer(id);
+            if (computer != null)
             {
-                if (computer.Element("Id").Value == iop.Id.ToString())
-                {
-                    computer.Element("Name").Value = iop.Name;
-                    computer.Element("MacAddress").Value = iop.MacAddress == null ? "" : iop.MacAddress;
-                    computer.Element("IpAddress").Value = iop.IpAddress == null ? "" : iop.IpAddress;
-                }
+                return View(
+                    new Computer()
+                    {
+                        Id = Guid.Parse(computer.Element("Id").Value),
+                        Name = computer.Element("Name").Value,
+                        MacAddress = computer.Element("MacAddress").Value,
+                        IpAddress = computer.Element("IpAddress").Value
+                    });
             }
-            db.SaveChanges(computers);
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Computer computer)
+        {
+            BaseContext db = new BaseContext(Guid.Parse(User.Identity.Name));
+            db.EditComputer(computer.Id, computer.Name, computer.IpAddress, computer.MacAddress);
             return RedirectToAction("Index");
         }
 
         public ActionResult TurnOn(Guid id)
         {
-            BaseContext db = new BaseContext(int.Parse(User.Identity.Name));
-
-            var temp = db.GetComputers().ToList();
-            foreach (var u in temp)
+            BaseContext db = new BaseContext(Guid.Parse(User.Identity.Name));
+            var computer = db.GetComputer(id);
+            if (computer != null)
             {
-                if (u.Element("Id").Value == id.ToString())
-                {
-                    Wake.Execute(u.Element("MacAddress").Value.Replace(":", "").Replace("-", ""));
-                    return RedirectToAction("Index");
-                }
+                Options.Wake(computer.Element("MacAddress").Value.Replace(":", "").Replace("-", ""));
+                return RedirectToAction("Index");
             }
-            return HttpNotFound();
+            else
+            {
+                return HttpNotFound();
+            }
         }
-
+        public ActionResult TurnOff(Guid id)
+        {
+            BaseContext db = new BaseContext(Guid.Parse(User.Identity.Name));
+            var computer = db.GetComputer(id);
+            if (computer != null)
+            {
+                Options.Wake(computer.Element("MacAddress").Value.Replace(":", "").Replace("-", ""));
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
         public ActionResult Exit()
         {
             FormsAuthentication.SignOut();

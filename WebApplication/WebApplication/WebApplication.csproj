@@ -209,7 +209,7 @@
     <Compile Include="Controllers\EnterAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Utils\PingComputers.cs" />
-    <Compile Include="Controllers\Utils\Wake.cs" />
+    <Compile Include="Controllers\Utils\Options.cs" />
     <Compile Include="Controllers\Utils\WOLClass.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,6 +219,7 @@
     <Compile Include="Models\Dto\Computer.cs" />
     <Compile Include="Hub\MyHub.cs" />
     <Compile Include="Models\Dto\User.cs" />
+    <Compile Include="Models\Utils\HashPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -294,6 +295,8 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Enter.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\CreateUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,9 +4,9 @@
     using System.Globalization;
     using System.Net;
 
-    public class Wake
+    public static class Options
     {
-        public static void Execute(string MAC_ADDRESS)
+        public static void Wake(string MAC_ADDRESS)
         {
             try
             {
